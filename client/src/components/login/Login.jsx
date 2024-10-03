@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import hotWeatherImage from '../../assets/hot-weather.png';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();  // Hook for navigation
 
-    const handleLogin = (e) => {
+    const handleLogin = async(e) => {
         e.preventDefault();
 
         // Make a POST request to check login credentials
         axios.post('https://weatherapp-8bhd.onrender.com/login', { email, password })
             .then(response => {
-                if (response.data.success) {
-                    toast.success(response.data.message || "Logged in!");
-                    navigate('/signup');  // Redirect to homepage on successful login
+                let x = response.data;
+                console.log(response);
+                if (x.message.includes("Login successful.")) {
+                    toast.success("Logged in!");
+                    setTimeout(() => {
+                        navigate('/');  // Redirect to homepage on successful login
+                    }, 1000);
                 } else {
                     toast.error(response.data.message);  // Show error message from server
                 }
@@ -90,6 +95,7 @@ const Login = () => {
                 <div className="w-full md:w-1/2 bg-[#a5c0dd] flex justify-center items-center">
                     <img src={hotWeatherImage} alt="Hot Weather" className="h-auto" />
                 </div>
+                
             </div>
 
             <ToastContainer />
