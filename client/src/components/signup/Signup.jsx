@@ -18,7 +18,7 @@ const Signup = () => {
         }
 
         // Make a POST request to store user data
-        axios.post('https://weather-app-mtp6.vercel.app/signup', { email, password })
+        axios.post('https://weatherapp-8bhd.onrender.com/signup', { email, password })
             .then(response => {
                 toast.success(response.data.message || "User registered successfully!");
             })
