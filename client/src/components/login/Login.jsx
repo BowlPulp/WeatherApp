@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault();
 
         // Make a POST request to check login credentials
-        axios.post('http://localhost:3001/login', { email, password })
+        axios.post('https://weather-app-mtp6.vercel.app/login', { email, password })
             .then(response => {
                 if (response.data.success) {
                     toast.success(response.data.message || "Logged in!");
